@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Setup Store</title>
+<style>
+  body {
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    direction: rtl;
+  }
+
+  h1 {
+    color: red;
+    margin-top: 50px;
+  }
+
+  .add-product {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 30px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .payment-button {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: black;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+  }
+
+  .payment-options {
+    display: none;
+    background-color: #f2f2f2;
+    color: black;
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid red;
+    width: 300px;
+  }
+
+  .form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid red;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 9999;
+    width: 300px;
+  }
+
+  .form-popup input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+  }
+
+  .form-popup button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1>اهلا بكم في موقع Setup Store لجميع اجزاء تجهيز اي سيتاب</h1>
+
+<button class="add-product">اضف منتج</button>
+
+<button class="payment-button">وسائل الدفع</button>
+
+<div class="payment-options" id="paymentOptions">
+  <h3>وسائل الدفع المتاحة:</h3>
+  <ul style="list-style-type: none; padding: 0;">
+    <li>فودافون كاش</li>
+    <li>انستا باي</li>
+  </ul>
+</div>
+
+<!-- نافذة منبثقة (Form) لإضافة المنتج -->
+<div class="form-popup" id="productForm">
+  <h3>ادخل بياناتك</h3>
+  <input type="text" id="clientName" placeholder="اسم العميل" required>
+  <input type="text" id="phone" placeholder="رقم الهاتف" required>
+  <input type="text" id="address" placeholder="العنوان" required>
+  <input type="text" id="street" placeholder="اسم الشارع" required>
+  <button id="addToCart">اضف الي العربة</button>
+  <button id="closeForm" style="background-color: black;">اغلاق</button>
+</div>
+
+<script>
+  // زر الدفع: عرض وسائل الدفع
+  const paymentButton = document.querySelector('.payment-button');
+  const paymentOptions = document.getElementById('paymentOptions');
+
+  paymentButton.addEventListener('click', () => {
+    paymentOptions.style.display = (paymentOptions.style.display === 'none' || paymentOptions.style.display === '') ? 'block' : 'none';
+  });
+
+  // زر "اضف منتج" : فتح الفورم
+  const addProductButton = document.querySelector('.add-product');
+  const productForm = document.getElementById('productForm');
+
+  addProductButton.addEventListener('click', () => {
+    productForm.style.display = 'block';
+  });
+
+  // زر اغلاق الفورم
+  const closeFormButton = document.getElementById('closeForm');
+  closeFormButton.addEventListener('click', () => {
+    productForm.style.display = 'none';
+  });
+
+  // زر "اضف الي العربة" : التحقق من البيانات
+  const addToCartButton = document.getElementById('addToCart');
+  addToCartButton.addEventListener('click', () => {
+    const name = document.getElementById('clientName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const street = document.getElementById('street').value.trim();
+
+    if (name && phone && address && street) {
+      alert(`تمت إضافة المنتج الي العربة:\nالعميل: ${name}\nالهاتف: ${phone}\nالعنوان: ${address}\nالشارع: ${street}`);
+      productForm.style.display = 'none';
+    } else {
+      alert('برجاء ملء جميع البيانات!');
+    }
+  });
+</script>
+
+</body>
+</html>
